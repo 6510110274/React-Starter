@@ -23,6 +23,26 @@ export class UserRepository {
         }
     }
 
+    async create(user) {
+        try{
+            const response = await axios.post(`${this.urlPrefix}`, user);
+            return response.data;
+        }catch (error) {
+            console.error("Error creating users:", error);
+            throw error;
+        }
+    }
+
+    async update(id, user) {
+        try{
+            const response = await axios.put(`${this.urlPrefix}/${id}`, user);
+            return response.data;
+        }catch (error) {
+            console.error("Error updating users:", error);
+            throw error;
+        }
+    }
+
     async delete(id) {
         try{
             const response = await axios.delete(`${this.urlPrefix}/${id}`);
