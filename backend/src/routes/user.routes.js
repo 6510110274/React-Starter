@@ -20,11 +20,11 @@ router.get("/", async (req, res) => {
     }
 }); 
 
-router.get("/:id", async (req, res) => {
-  const id = parseInt(req.params.id); // แปลงเป็นตัวเลข
+router.get("/:_id", async (req, res) => {
+  const id = req.params._id; // แปลงเป็นตัวเลข
   console.log("Find One User by custom id", id);
   try {
-    const result = await User.findOne({ id: id }); // ใช้ id ที่คุณสร้างเอง
+    const result = await User.findOne({ _id: id }); // ใช้ id ที่คุณสร้างเอง
     res.json(result);
   } catch (error) {
     res.status(404).json({ err: error });
@@ -39,6 +39,15 @@ router.post("/", async (req, res) => {
     res.status(201).json(newUser);
   } catch (error) {
     res.status(400).json({ err: error });
+  }
+});
+
+router.put("/:_id", async (req, res) => {
+  try {
+    const result = await User.updateOne({ _id: req.params._id }, req.body);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(404).json({ err: error });
   }
 });
 
