@@ -1,16 +1,16 @@
 import React, {useState,useEffect} from "react";
-import { Card, CardContent, Input } from "@mui/joy";
+import { Card, CardContent, Input, LinearProgress } from "@mui/joy";
 import Content from "./components/Content";
 import Repo from "./repositories";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [users,setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
-      const res = await Repo.users.getAll();
+      const res = await Repo.users.getAll({ name:searchTerm });
       setUsers(res?.rows || []);
       setLoading(false);
       console.log("User", res?.rows);
@@ -23,6 +23,13 @@ function App() {
     fetchData();
     console.log("Users", users);
   },[searchTerm]);
+  if(loading) {
+    return(
+      <div>
+        <LinearProgress/>
+      </div>
+      );
+    }
   return (
     <div>
       <Card>
@@ -36,7 +43,7 @@ function App() {
             You Search <span className='text-blue-500'>{searchTerm}</span>
           </div>
         </CardContent>
-        <Content props={users}/>
+        <Content users={users} onDeleteSuccess={fetchData} />
       </Card>
     </div>
   );

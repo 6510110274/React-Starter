@@ -1,24 +1,45 @@
-import React from 'react';
-import { Card, CardContent } from "@mui/joy";
+import React, { useEffect } from 'react';
+import { Table,Button } from "@mui/joy";
+import Repo from "../repositories";
 
-function Content({ starWarPeople }) {
+function Content({ users, onDeleteSuccess}) {
+
+    const handleDeleteUser = async (userId) => {
+        try {
+          await Repo.users.delete(userId);
+          onDeleteSuccess();
+        }catch (error) {
+          alert(error?.message);
+          console.error("Error", error?.message);
+        }
+    };
+
+    useEffect(() => {
+    },[]);
     return (
-        <div className='mx-4'>
-        {starWarPeople?.map((eachPeople, index) => (
-          <Card key={index} className='my-2'>
-            <CardContent>
-              <div className='flex'>
-                <div className='w-1/3'></div>
-                <div className='w-2/3'>
-                  <li>Name: {eachPeople?.name}</li>
-                  <li>Height: {eachPeople?.height}</li>
-                  <li>Mass: {eachPeople?.mass}</li>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+    <div>
+        <h3 className='font-bold'>User List</h3>
+        <Table>
+        <thead>
+            <tr>
+            <th>ลำดับที่</th>
+            <th>ชื่อ</th>
+            <th>แผนก</th>
+            <th>ดำเนินการ</th>
+            </tr>
+        </thead>
+        {users?.map((user, index) => (
+            <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{user?.name}</td>
+            <td>{user?.department}</td>
+            <td>
+                <Button color='danger' onClick={()=>handleDeleteUser(user?._id)}>ลบ</Button>
+            </td>
+            </tr>
         ))}
-      </div>
+        </Table>
+    </div>
     );
 };
 
