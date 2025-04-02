@@ -4,14 +4,21 @@ const User = require("../models/User");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    console.log("Find All Users");
+
     try {
+      const { name } = req.query; // รับค่าจาก query string
+      if (name) {
+        const result = await User.find({ name: { $regex: name, $options: "i" } });
+        console.log("Find User by name", name);
+        return res.json({ rows: result });
+      }
+      console.log("Find All Users");
       const result = await User.find();
       res.json({ rows: result });
     } catch (error) {
       res.status(404).json({ err: error });
     }
-});
+}); 
 
 router.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id); // แปลงเป็นตัวเลข
@@ -24,8 +31,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
-
 router.post("/", async (req, res) => {
   console.log("Create User Body", req.body);
   const newUser = new User(req.body);
@@ -37,5 +42,13 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:_id",async (req, res) => {
+  try {
+    const result = await User.deleteOne({ _id: req.params._id });
+    res.status(204).json(result);
+  } catch (error) {
+    res.status(404).json({ err: error });
+  }
+});
 
 module.exports = router;
