@@ -1,17 +1,19 @@
 import React, {useState,useEffect} from "react";
 import { Card, CardContent, Input } from "@mui/joy";
 import Content from "./components/Content";
-import axios from "axios";
+import Repo from "./repositories";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [starWarPeople, setStarWarPeople] = useState([]);
+  const [users,setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`https://swapi.dev/api/people`);
-      setStarWarPeople(res?.data?.results || []);
-      console.log("People", res?.data?.results);
+      const res = await Repo.users.getAll();
+      setUsers(res?.rows || []);
+      setLoading(false);
+      console.log("User", res?.rows);
     } catch (error) {
       console.error("Error", error?.message);
     }
@@ -19,7 +21,7 @@ function App() {
 
  useEffect(() => {
     fetchData();
-    console.log("Star War People", starWarPeople);
+    console.log("Users", users);
   },[searchTerm]);
   return (
     <div>
@@ -34,7 +36,7 @@ function App() {
             You Search <span className='text-blue-500'>{searchTerm}</span>
           </div>
         </CardContent>
-        <Content starWarPeople={starWarPeople}/>
+        <Content props={users}/>
       </Card>
     </div>
   );
