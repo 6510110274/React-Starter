@@ -22,4 +22,14 @@ export class UserRepository {
             throw error;
         }
     }
+
+    async delete(id) {
+        try{
+            const response = await axios.delete(`${this.urlPrefix}/${id}`);
+            return response.data;
+        }catch (error) {
+            console.error("Error delete users:", error);
+            throw error;
+        }
+    }
 }
