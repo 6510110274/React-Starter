@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, ModalDialog, Typography, FormControl, Input, DialogActions} from "@mui/joy";
 import Repo from "../repositories";
 
-function Content({ users, onDeleteSuccess}) {
+function Content({ users, onActionSuccess}) {
     const [editUser, setEditUser] = useState(null);
     const [open, setOpen] = useState(false);
 
     const handleDeleteUser = async (userId) => {
         try {
           await Repo.users.delete(userId);
-          onDeleteSuccess();
+          onActionSuccess();
         }catch (error) {
           alert(error?.message);
           console.error("Error", error?.message);
@@ -19,8 +19,6 @@ function Content({ users, onDeleteSuccess}) {
     const handleUpdateUser = async (userId) => {
         try {
           const user = await Repo.users.get(userId);
-          alert(`User: ${user?.name}, Department: ${user?.department}`);
-          console.log("User", user);
           setEditUser(user);
           setOpen(true); // เปิด Modal
         }catch (error) {
@@ -93,7 +91,7 @@ function Content({ users, onDeleteSuccess}) {
                 try {
                     await Repo.users.update(editUser._id, editUser);
                     setOpen(false);
-                    onDeleteSuccess(); // รีเฟรชรายการ
+                    onActionSuccess(); // รีเฟรชรายการ
                 } catch (error) {
                     alert(error?.message);
                 }

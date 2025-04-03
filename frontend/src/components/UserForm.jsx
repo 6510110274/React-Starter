@@ -1,17 +1,17 @@
 import { useForm,Controller } from "react-hook-form";
-import { Card, CardContent, Input, Button } from "@mui/joy";
+import { Link } from "react-router-dom";
+import { Card, CardContent, Input, Button, LinearProgress } from "@mui/joy";
 import { useState } from "react";
 import Repo from "../repositories";
 
-function UserForm( { onCreateSuccess } ){
+function UserForm( ){
   const { control,handleSubmit } = useForm();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleCreateUser = async (data) => {
     setLoading(true);
     try {
       await Repo.users.create(data);
-      onCreateSuccess();
       setLoading(false);
       alert("Create User Success");
     } catch (error) {
@@ -19,7 +19,13 @@ function UserForm( { onCreateSuccess } ){
       console.error("Error", error?.message);
     }
   }
-
+  if(loading) {
+    return(
+      <div>
+        <LinearProgress/>
+      </div>
+      );
+    }
   return (
     <div className='lg:w-3/4 '>
     <div className='my-1 font-semibold text-lg'>เพิ่มพนักงานใหม่</div>
@@ -42,9 +48,12 @@ function UserForm( { onCreateSuccess } ){
            <Input {...field} placeholder='แผนก' />
              )}
        />
-        <div>
+        <Link
+          to="/"
+          aria-current="page"
+          >
             <Button type="submit">บันทึก</Button>
-        </div>
+        </Link>
         </form>
       </CardContent>
     </Card>
