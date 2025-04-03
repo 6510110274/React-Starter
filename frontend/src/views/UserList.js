@@ -2,6 +2,8 @@ import React, {useState,useEffect} from "react";
 import { Card, CardContent, Input, LinearProgress } from "@mui/joy";
 import Content from "../components/Content";
 import Repo from "../repositories";
+import Header from "../components/Header";
+import Home from "../components/Home";
 
 
 function UserList() {
@@ -33,19 +35,13 @@ function UserList() {
     }
   return (
     <div>
+      <Header/>
       <Card>
         <CardContent>
-          <div>Search Box</div>
-          <Input
-            placeholder='Input Some Search Word'
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <div>
-            You Search <span className='text-blue-500'>{searchTerm}</span>
-          </div>
+          <Home/>
         </CardContent>
-        <Content users={users} onActionSuccess={fetchData} />
       </Card>
+
     </div>
   );
 }

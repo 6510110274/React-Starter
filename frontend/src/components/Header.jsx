@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Header() {
     return (
     <div className="bg-white shadow-sm px-6 py-3 flex items-center justify-between">
@@ -6,11 +8,23 @@ function Header() {
             <div className="text-lg font-semibold"> IARC Devboard</div>
         </div>
         <div class="space-x-6 hidden md:flex">
-            <a href="#" class="text-blue-600 font-medium">Home</a>
-            <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
+            <Link 
+                to="/"
+                aria-current="page"
+                className="text-blue-600 font-medium"
+            >
+                <a>Home</a>
+            </Link>
+            <Link 
+                to="/create"
+                aria-current="page"
+                class="text-gray-700 hover:text-blue-600"
+            >
+                <a>Create</a>
+            </Link>
             <a href="#" class="text-gray-700 hover:text-blue-600">Services</a>
             <a href="#" class="text-gray-700 hover:text-blue-600">Pricing</a>
-            <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+            <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
         </div>
 
         <div>

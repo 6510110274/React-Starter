@@ -1,8 +1,7 @@
 import React, {useState,useEffect} from "react";
 import { Card, CardContent, Input, LinearProgress } from "@mui/joy";
-import Content from "./components/Content";
-import Repo from "./repositories";
-import UserForm from "./components/UserForm";
+import Content from "./Content";
+import Repo from "../repositories";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,7 +33,6 @@ function Home() {
   return (
     <div>
       <Card>
-        <UserForm onCreateSuccess={fetchData} />
         <CardContent>
           <div>Search Box</div>
           <Input
@@ -51,4 +49,4 @@ function Home() {
   );
 }
 
-export default App;
+export default Home;

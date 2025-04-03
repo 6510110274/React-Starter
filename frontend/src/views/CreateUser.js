@@ -1,21 +1,11 @@
-import { Button } from "@mui/joy";
 import UserForm from "../components/UserForm";
-import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 function CreateUser() {
   return (
     <div>
+      <Header/>
       <UserForm />
-      <div>
-        <Link
-          to="/"
-          aria-current="page"
-          >
-          <Button>
-            Home
-          </Button>
-        </Link>
-      </div>  
     </div>
   );
 }
