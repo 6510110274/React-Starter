@@ -4,27 +4,33 @@ function Header() {
     return (
     <div className="bg-white shadow-sm px-6 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-            <img class="w-6 h-6" src="https://png.pngtree.com/element_our/png_detail/20180911/background-material-design-for-lorem-ipsum-logo-png_89686.jpg"/>
+            <img alt="IARC Logo" className="w-6 h-6" src="https://png.pngtree.com/element_our/png_detail/20180911/background-material-design-for-lorem-ipsum-logo-png_89686.jpg"/>
             <div className="text-lg font-semibold"> IARC Devboard</div>
         </div>
-        <div class="space-x-6 hidden md:flex">
+        <div className="space-x-6 hidden md:flex">
             <Link 
                 to="/"
                 aria-current="page"
                 className="text-blue-600 font-medium"
             >
-                <a>Home</a>
+                Home
             </Link>
             <Link 
                 to="/create"
                 aria-current="page"
-                class="text-gray-700 hover:text-blue-600"
+                className="text-gray-700 hover:text-blue-600"
             >
-                <a>Create</a>
+                Create
             </Link>
-            <a href="#" class="text-gray-700 hover:text-blue-600">Services</a>
-            <a href="#" class="text-gray-700 hover:text-blue-600">Pricing</a>
-            <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
+            <Link
+                to="/product"
+                aria-current="page"
+                className="text-gray-700 hover:text-blue-600"
+            >
+                Product
+            </Link>
+            <div href="#" class="text-gray-700 hover:text-blue-600">Pricing</div>
+            <div href="#" class="text-gray-700 hover:text-blue-600">About</div>
         </div>
 
         <div>

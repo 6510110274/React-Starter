@@ -35,6 +35,24 @@ function Content({ users, onActionSuccess}) {
         }
     };
 
+    const confirmUpdateUser = async () => {
+        try {
+        await Repo.users.update(editUser._id, editUser);
+        setOpen(false);
+        onActionSuccess(); // รีเฟรชรายการ
+
+        // ✅ แสดง SweetAlert แจ้งผลลัพธ์
+        Swal.fire({
+            title: 'สำเร็จ!',
+            text: 'แก้ไขข้อมูลพนักงานเรียบร้อยแล้ว',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+        });
+
+        } catch (error) {
+        alert(error?.message);
+        }
+    }
     const handleUpdateUser = async (userId) => {
         try {
           const user = await Repo.users.get(userId);
@@ -60,6 +78,7 @@ function Content({ users, onActionSuccess}) {
             <th>ดำเนินการ</th>
             </tr>
         </thead>
+        <tbody>
         {users?.map((user, index) => (
             <tr key={index}>
             <td>{index + 1}</td>
@@ -82,6 +101,7 @@ function Content({ users, onActionSuccess}) {
             </td>
             </tr>
         ))}
+        </tbody>
         </Table>
         <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
@@ -106,24 +126,7 @@ function Content({ users, onActionSuccess}) {
             </FormControl>
             <DialogActions>
             <Button
-                onClick={async () => {
-                    try {
-                    await Repo.users.update(editUser._id, editUser);
-                    setOpen(false);
-                    onActionSuccess(); // รีเฟรชรายการ
-
-                    // ✅ แสดง SweetAlert แจ้งผลลัพธ์
-                    Swal.fire({
-                        title: 'สำเร็จ!',
-                        text: 'แก้ไขข้อมูลพนักงานเรียบร้อยแล้ว',
-                        icon: 'success',
-                        confirmButtonText: 'ตกลง'
-                    });
-
-                    } catch (error) {
-                    alert(error?.message);
-                    }
-                }}
+                onClick={confirmUpdateUser}
                 >
                 บันทึก
             </Button>
