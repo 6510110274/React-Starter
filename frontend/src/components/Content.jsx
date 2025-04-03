@@ -1,10 +1,29 @@
+import Swal from 'sweetalert2'
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, ModalDialog, Typography, FormControl, Input, DialogActions} from "@mui/joy";
 import Repo from "../repositories";
 
+
 function Content({ users, onActionSuccess}) {
     const [editUser, setEditUser] = useState(null);
     const [open, setOpen] = useState(false);
+
+    const confirmDelete = (id) => {
+        Swal.fire({
+          title: 'แน่ใจหรือไม่?',
+          text: "คุณต้องการลบพนักงานคนนี้ใช่หรือไม่",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'ใช่, ลบเลย!',
+          cancelButtonText: 'ยกเลิก',
+          confirmButtonColor: '#d33',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            handleDeleteUser(id);
+            Swal.fire('ลบแล้ว!', 'ข้อมูลถูกลบเรียบร้อย', 'success');
+          }
+        });
+      };
 
     const handleDeleteUser = async (userId) => {
         try {
@@ -49,7 +68,7 @@ function Content({ users, onActionSuccess}) {
             <td>
                 <Button 
                 color='danger'
-                onClick={()=>handleDeleteUser(user?._id)}
+                onClick={()=>confirmDelete(user?._id)}
                 sx={{ mr: 1 }}
                 >
                     ลบ
@@ -88,15 +107,24 @@ function Content({ users, onActionSuccess}) {
             <DialogActions>
             <Button
                 onClick={async () => {
-                try {
+                    try {
                     await Repo.users.update(editUser._id, editUser);
                     setOpen(false);
                     onActionSuccess(); // รีเฟรชรายการ
-                } catch (error) {
+
+                    // ✅ แสดง SweetAlert แจ้งผลลัพธ์
+                    Swal.fire({
+                        title: 'สำเร็จ!',
+                        text: 'แก้ไขข้อมูลพนักงานเรียบร้อยแล้ว',
+                        icon: 'success',
+                        confirmButtonText: 'ตกลง'
+                    });
+
+                    } catch (error) {
                     alert(error?.message);
-                }
+                    }
                 }}
-            >
+                >
                 บันทึก
             </Button>
             <Button variant="soft" color="neutral" onClick={() => setOpen(false)}>
