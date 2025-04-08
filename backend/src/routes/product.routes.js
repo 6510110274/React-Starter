@@ -1,12 +1,12 @@
 const express = require("express")
-const Order = require("../models/Order");
+const Product = require("../models/Product");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const result = await Order.find();
-    console.log("Find All Orders");
+    const result = await Product.find();
+    console.log("Find All Products");
     res.json({ rows: result });
   } catch (error) {
     res.status(404).json({ err: error });
@@ -14,10 +14,10 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:_id", async (req, res) => {
-  const id = req.params._id; // แปลงเป็นตัวเลข
-  console.log("Find One Order by custom id", id);
+  const id = req.params._id; 
+  console.log("Find One Product by custom id", id);
   try {
-    const result = await Order.findOne({ _id: id }); // ใช้ id ที่คุณสร้างเอง
+    const result = await Product.findOne({ _id: id }); 
     res.json(result);
   } catch (error) {
     res.status(404).json({ err: error });
@@ -25,11 +25,11 @@ router.get("/:_id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  console.log("Create Order Body", req.body);
-  const newOrder = new Order(req.body);
+  console.log("Create Product Body", req.body);
+  const newProduct = new Product(req.body);
   try {
-    await newOrder.save({});
-    res.status(201).json(newOrder);
+    await newProduct.save({});
+    res.status(201).json(newProduct);
   } catch (error) {
     res.status(400).json({ err: error });
   }
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:_id", async (req, res) => {
   try {
-    const result = await Order.updateOne({ _id: req.params._id }, req.body);
+    const result = await Product.updateOne({ _id: req.params._id }, req.body);
     res.status(200).json(result);
   } catch (error) {
     res.status(404).json({ err: error });
@@ -47,7 +47,7 @@ router.put("/:_id", async (req, res) => {
 
 router.delete("/:_id",async (req, res) => {
   try {
-    const result = await Order.deleteOne({ _id: req.params._id });
+    const result = await Product.deleteOne({ _id: req.params._id });
     res.status(204).json(result);
   } catch (error) {
     res.status(404).json({ err: error });
