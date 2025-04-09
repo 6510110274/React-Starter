@@ -5,7 +5,7 @@ const Order = new mongoose.Schema(
     date:Date,
     product: [
       {
-        product: {type:mongoose.Schema.Types.ObjectId, ref:"Product"},
+        product: {type:mongoose.Schema.Types.ObjectId, ref:"products"},
         quantity: Number,
       },
     ],
