@@ -4,7 +4,7 @@ import { ProductRepository } from './ProductRepository.js';
 
 const repositories = {
     users : new UserRepository(),
-    oders : new OrderRepository(),
+    orders : new OrderRepository(),
     products : new ProductRepository()
 }
 
