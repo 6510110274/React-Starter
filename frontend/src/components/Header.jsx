@@ -29,7 +29,13 @@ function Header() {
             >
                 Product
             </Link>
-            <div href="#" className="text-gray-700 hover:text-blue-600">Pricing</div>
+            <Link
+                to="/order"
+                aria-current="page"
+                className="text-gray-700 hover:text-blue-600"
+            >
+                Order
+            </Link>
             <div href="#" className="text-gray-700 hover:text-blue-600">About</div>
             <img src="https://static.vecteezy.com/system/resources/previews/020/765/399/original/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="Profile" class="w-8 h-8 rounded-full object-cover" />
         </div>
