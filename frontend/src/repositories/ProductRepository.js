@@ -3,12 +3,12 @@ import axios from "axios";
 export class ProductRepository {
     urlPrefix = "http://localhost:8000/api/product";
 
-    async getAll(filter) {
+    async getAll() {
         try{
-            const response = await axios.get(`${this.urlPrefix}`, { params: filter });
+            const response = await axios.get(`${this.urlPrefix}`);
             return response.data;
         }catch (error) {
-            console.error("Error fetching users:", error);
+            console.error("Error fetching products:", error);
             throw error;
         }
     }
@@ -18,27 +18,27 @@ export class ProductRepository {
             const response = await axios.get(`${this.urlPrefix}/${id}`);
             return response.data;
         }catch (error) {
-            console.error("Error fetching users:", error);
+            console.error("Error fetching products:", error);
             throw error;
         }
     }
 
-    async create(user) {
+    async create(product) {
         try{
-            const response = await axios.post(`${this.urlPrefix}`, user);
+            const response = await axios.post(`${this.urlPrefix}`, product);
             return response.data;
         }catch (error) {
-            console.error("Error creating users:", error);
+            console.error("Error creating products:", error);
             throw error;
         }
     }
 
-    async update(id, user) {
+    async update(id, product) {
         try{
-            const response = await axios.put(`${this.urlPrefix}/${id}`, user);
+            const response = await axios.put(`${this.urlPrefix}/${id}`, product);
             return response.data;
         }catch (error) {
-            console.error("Error updating users:", error);
+            console.error("Error updating products:", error);
             throw error;
         }
     }
@@ -48,7 +48,7 @@ export class ProductRepository {
             const response = await axios.delete(`${this.urlPrefix}/${id}`);
             return response.data;
         }catch (error) {
-            console.error("Error delete users:", error);
+            console.error("Error delete products:", error);
             throw error;
         }
     }

@@ -8,7 +8,7 @@ export class OrderRepository {
             const response = await axios.get(`${this.urlPrefix}`, { params: filter });
             return response.data;
         }catch (error) {
-            console.error("Error fetching users:", error);
+            console.error("Error fetching orders:", error);
             throw error;
         }
     }
@@ -18,27 +18,27 @@ export class OrderRepository {
             const response = await axios.get(`${this.urlPrefix}/${id}`);
             return response.data;
         }catch (error) {
-            console.error("Error fetching users:", error);
+            console.error("Error fetching orders:", error);
             throw error;
         }
     }
 
-    async create(user) {
+    async create(order) {
         try{
-            const response = await axios.post(`${this.urlPrefix}`, user);
+            const response = await axios.post(`${this.urlPrefix}`, order);
             return response.data;
         }catch (error) {
-            console.error("Error creating users:", error);
+            console.error("Error creating orders:", error);
             throw error;
         }
     }
 
-    async update(id, user) {
+    async update(id, order) {
         try{
-            const response = await axios.put(`${this.urlPrefix}/${id}`, user);
+            const response = await axios.put(`${this.urlPrefix}/${id}`, order);
             return response.data;
         }catch (error) {
-            console.error("Error updating users:", error);
+            console.error("Error updating orders:", error);
             throw error;
         }
     }
@@ -48,7 +48,7 @@ export class OrderRepository {
             const response = await axios.delete(`${this.urlPrefix}/${id}`);
             return response.data;
         }catch (error) {
-            console.error("Error delete users:", error);
+            console.error("Error delete orders:", error);
             throw error;
         }
     }
