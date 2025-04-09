@@ -35,7 +35,7 @@ function UserList() {
   }, [fetchData]);
 
   return (
-    <div>
+    <div className="p-4">
       <Header />
       <Card>
         <CardContent>
