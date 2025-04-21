@@ -43,7 +43,10 @@ async function authMiddleware(req, res, next) {
       const decoded = await verifyJwt(token);
       req.authData = {
         username: decoded.preferred_username,
-        isStaff: (decoded.groups || []).includes('staff'),
+        email: decoded.email,
+        exp: decoded.exp,
+        isStaff: decoded.groups?.includes('staff'),
+        groups: decoded.groups || []
       };
       return next();
     } catch (err) {
