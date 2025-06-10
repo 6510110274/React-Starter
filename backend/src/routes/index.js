@@ -8,6 +8,6 @@ const apiRouter = express.Router();
 
 apiRouter.use('/user',user)
 apiRouter.use('/order', order);
-apiRouter.use('/product',authMiddleware , product);
+apiRouter.use('/product', product);
 
 module.exports = apiRouter;

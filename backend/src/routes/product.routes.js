@@ -28,6 +28,7 @@ router.get("/:_id", async (req, res) => {
 router.post("/", async (req, res) => {
   console.log("Create Product Body", req.body);
   const newProduct = new Product(req.body);
+  const authData = req.authData;
   try {
     await newProduct.save({});
     res.status(201).json(newProduct);
